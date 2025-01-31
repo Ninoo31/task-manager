@@ -1,6 +1,6 @@
 import unittest
 from app import app, db
-from app.models import Task
+from app.models.Task import Task
 
 class TaskRoutesTest(unittest.TestCase):
     def setUp(self):
