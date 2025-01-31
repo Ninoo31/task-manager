@@ -1,5 +1,5 @@
 from app import create_app
-from app.models import db
+from app.models.Task import db
 
 app = create_app()
 

@@ -1,4 +1,4 @@
-from app.models import db, Task
+from app.models.Task import db, Task
 
 def create_task(data):
     new_task = Task(
