@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from app.services.task_services import create_task, get_all_tasks, get_task_by_id, update_task, delete_task
-from utils.validators import validate_task_data, validate_task_id  # Import des validateurs
+from app.utils.validators import validate_task_data, validate_task_id  # Import des validateurs
 from flask_jwt_extended import jwt_required  # Import du JWT pour protéger les routes
 
 @jwt_required()

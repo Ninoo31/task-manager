@@ -1,8 +1,8 @@
 from flask import request, jsonify
-from services.user_service import register_user, authenticate_user
+from app.services.user_service import register_user, authenticate_user
 from flask_jwt_extended import create_access_token
-from models import User
-from utils.validators import validate_user_data  # ✅ Import des validateurs
+from app.models import User
+from app.utils.validators import validate_user_data  # ✅ Import des validateurs
 
 def handle_register():
     """ Gère l'inscription d'un utilisateur avec validation """

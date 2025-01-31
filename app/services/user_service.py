@@ -1,4 +1,4 @@
-from app.models import db, User
+from app.models.User import db, User
 
 def register_user(username, email, password):
     if User.query.filter_by(username=username).first():
