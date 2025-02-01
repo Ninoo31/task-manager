@@ -3,11 +3,13 @@ from flask_jwt_extended import JWTManager
 from app.config import Config
 from app.models.Task import db
 from app.routes import register_blueprints
+from app.error.jwt_error import register_jwt_errors
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
-    jwt = JWTManager(app)
+    jwt = JWTManager(app)  # ✅ Initialisation de JWT
+    register_jwt_errors(app)  # ✅ Enregistrement des erreurs JWT
     db.init_app(app)
     register_blueprints(app)
     return app

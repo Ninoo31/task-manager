@@ -18,5 +18,3 @@ class Config:
     SQLALCHEMY_DATABASE_URI = f"sqlite:///{DATABASE_PATH}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = True
-
-print("🔍 DEBUG - JWT_SECRET_KEY chargé :", Config.JWT_SECRET_KEY)
