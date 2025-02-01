@@ -1,10 +1,21 @@
 import re
 
 def validate_task_data(data):
-    if "title" not in data or not data["title"]:
-        return "Title is required", False
+    print("Validate Task....")
+    """ Valide les données avant la création/modification d'une tâche. """
+    print("🔍 DEBUG - Données à valider :", data)
+    if "title" not in data or not isinstance(data["title"], str) or not data["title"].strip():
+        return "Title must be a non-empty string", False
     if "priority" in data and data["priority"] not in ["low", "medium", "high"]:
         return "Priority must be low, medium, or high", False
+    if "status" in data and data["status"] not in ["pending", "in_progress", "completed"]:
+        return "Invalid status", False
+    if "deadline" in data:
+        try:
+            import datetime
+            datetime.datetime.strptime(data["deadline"], "%Y-%m-%d")
+        except ValueError:
+            return "Deadline must be in format YYYY-MM-DD", False
     return "", True
 
 def validate_task_id(task_id):

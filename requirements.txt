@@ -1,7 +1,7 @@
-Flask
-Flask-JWT-Extended
-Flask-SQLAlchemy
-PyJWT
-python-dotenv
-SQLAlchemy
-Werkzeug
+Flask==3.1.0
+Flask-JWT-Extended==4.7.1
+Flask-SQLAlchemy==3.1.1
+PyJWT==2.6.0
+python-dotenv==1.0.1
+SQLAlchemy==2.0.37
+Werkzeug==3.1.3

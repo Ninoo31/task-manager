@@ -1,12 +1,12 @@
 from app.models.User import db, User
 
-def register_user(username, email, password):
+def register_user(username, email, password, role="users"):
     if User.query.filter_by(username=username).first():
         return "Username already taken", False
     if User.query.filter_by(email=email).first():
         return "Email already registered", False
 
-    new_user = User(username=username, email=email)
+    new_user = User(username=username, email=email, role=role)
     new_user.set_password(password)
     db.session.add(new_user)
     db.session.commit()
