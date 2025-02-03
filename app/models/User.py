@@ -1,12 +1,19 @@
-from app.config import db
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
+from sqlalchemy.orm import relationship
+from app.config.database import Base
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), unique=True, nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    password_hash = db.Column(db.String(255), nullable=False)
-    role = db.Column(db.String(10), nullable=False, default="user")
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, nullable=False)
+    email = Column(String, unique=True, nullable=False)
+    password_hash = Column(String, nullable=False)
+    role = Column(String(10), nullable=False, default="user")
+
+    tasks = relationship("Task", back_populates="user")
+    
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
