@@ -18,3 +18,16 @@ class Task(Base):
     # Ajout de la relation avec User
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     user = relationship("User", back_populates="tasks")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "status": self.status,
+            "deadline": self.deadline,
+            "priority": self.priority,
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat(),
+            "user_id": self.user_id
+        }

@@ -1,17 +1,13 @@
 from flask import request, jsonify
-from app.services.task_services import create_task, get_all_tasks, get_task_by_id, update_task, delete_task
+from app.services.task_services import *
 from app.utils.validators import validate_task_data, validate_task_id  # Import des validateurs
-from flask_jwt_extended import jwt_required  # Import du JWT pour protéger les routes
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.utils.auth import admin_required
 
 @jwt_required()
-def handle_create_task():
-    print("🔍 DEBUG - Headers reçus :", request.headers)  # ✅ Vérifie les en-têtes
-    print("🔍 DEBUG - Body reçu :", request.data)  # ✅ Affiche le contenu brut
-    
+def handle_create_task():    
     try:
         data = request.get_json()
-        print("🔍 DEBUG - JSON parsé :", data)  # ✅ Affiche le JSON décodé
     except Exception as e:
         print("❌ ERREUR - Impossible de parser JSON :", str(e))
         return jsonify({"error": "Invalid JSON format"}), 400
@@ -29,6 +25,13 @@ def handle_create_task():
 def handle_get_tasks():
     tasks = get_all_tasks()
     return jsonify([{ "id": task.id, "title": task.title, "description": task.description, "status": task.status, "priority": task.priority, "deadline": task.deadline } for task in tasks])
+
+@jwt_required()
+def handle_get_tasks_by_user_id():
+    user_id = get_jwt_identity()
+    tasks = get_tasks_by_user(user_id)
+    return jsonify([task.to_dict() for task in tasks]), 200
+
 
 @jwt_required()
 def handle_update_task(task_id):
